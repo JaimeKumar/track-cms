@@ -25,6 +25,7 @@ body {
 
 .wholeApp {
   overflow: hidden;
+  height: 100%;
 }
 
 .mainContainer {
