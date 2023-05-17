@@ -153,7 +153,7 @@ function App() {
 
   // FUNCTIONS //
   function resize() {
-    $('.pages').css('height', window.innerHeight + 'px');
+    $('.pages').css('height', window.innerHeight * 0.91 + 'px');
   }
 
   function selectProject(id) {
