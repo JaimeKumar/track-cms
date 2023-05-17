@@ -137,6 +137,8 @@ function App() {
     },
     projSelected: profile.projSelected
   }
+
+  
   
   // LOAD PROFILE
   useEffect(() => {
@@ -153,8 +155,11 @@ function App() {
 
   // FUNCTIONS //
   function resize() {
-    $('.pages').css('height', window.innerHeight * 0.91 + 'px');
+    // $('.pages').css('height', window.innerHeight * 0.91 + 'px');
+    $('.wholeApp').css('height', window.innerHeight+ 'px');
   }
+
+  window.addEventListener('resize', resize);
 
   function selectProject(id) {
     let index = profile.projects.map(proj => proj.id).indexOf(id);
