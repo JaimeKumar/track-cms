@@ -23,6 +23,10 @@ body {
   transition: background-color 0.2s ease;
 }
 
+.wholeApp {
+  overflow: hidden;
+}
+
 .mainContainer {
   display: grid;
   grid-template-columns: 5% 24% 48% 23%;
