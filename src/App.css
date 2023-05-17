@@ -676,6 +676,7 @@ i {
 .pages {
   width: 100%;
   height: 91%;
+  height: calc(var(--app-height) * 0.91);
   display: flex;
   flex-direction: column;
   align-items: center;
