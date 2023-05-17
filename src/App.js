@@ -155,7 +155,9 @@ function App() {
 
   // FUNCTIONS //
   function resize() {
-    $('.wholeApp').css('height', window.innerHeight + 'px');
+    const doc = document.documentElement
+    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+    // $('.wholeApp').css('height', window.innerHeight + 'px');
     // $('.pages').css('height', window.innerHeight * 0.91 + 'px');
     // $('.bottomBar').css('top', window.innerHeight * 0.91 + 'px');
   }
