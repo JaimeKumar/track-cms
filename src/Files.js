@@ -20,11 +20,9 @@ export default function Files({profile, fileCat, clickFile, clickFileRight, imgs
   return (
     <div className='scrollBox'>
         {files.map(file => {
-        if (fileCat.id === file.cat || fileCat.id === 0) {
-            return <File key={file.id} file={file} fileClick={clickFile} mode={profile.mode} rightClickFile={fileclickRight} imgs={imgs} />
-        } else {
-          return {};
-        }
+          if (fileCat.id === file.cat || fileCat.id === 0) {
+              return <File key={file.id} file={file} fileClick={clickFile} mode={profile.mode} rightClickFile={fileclickRight} imgs={imgs} />
+          }
         })}
     </div>
   )
