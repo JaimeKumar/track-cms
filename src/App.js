@@ -155,9 +155,9 @@ function App() {
 
   // FUNCTIONS //
   function resize() {
-    $('.wholeApp').css('height', window.innerHeight + 'px');
+    // $('.wholeApp').css('height', window.innerHeight + 'px');
     $('.pages').css('height', window.innerHeight * 0.91 + 'px');
-    $('.bottomBar').css('bottom', '0px');
+    $('.bottomBar').css('top', window.innerHeight * 0.91 + 'px');
   }
 
   window.addEventListener('resize', resize);
