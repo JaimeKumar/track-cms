@@ -142,6 +142,7 @@ function App() {
   useEffect(() => {
     let storedProfile = JSON.parse(localStorage.getItem('trackCMS.profile'));
     if (storedProfile) {setProfile(storedProfile)};
+    resize();
   }, [])
   
   // SAVE PROFILE
@@ -151,6 +152,10 @@ function App() {
 
 
   // FUNCTIONS //
+  function resize() {
+    $('.pages').css('height', window.innerHeight + 'px');
+  }
+
   function selectProject(id) {
     let index = profile.projects.map(proj => proj.id).indexOf(id);
     setProfile(p => ({

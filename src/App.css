@@ -701,8 +701,6 @@ h1 {
   justify-content: space-evenly;
   position: relative;
   max-height: 80vh;
-
-  align-items: center;
 }
 
 .page span {
