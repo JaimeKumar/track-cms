@@ -1,38 +1,944 @@
-.App {
-  text-align: center;
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+:root {
+  --bg1: #0c1b24;
+  --bg2: #030c11;
+  --bg3: #07121a;
+  --bg4: rgb(51, 81, 119);
+
+  --fg: #b6ceeb;
+  --fg2: #0d2331;
+  --fg-slight: #acc5dd33;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat';
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: black;
+  transition: background-color 0.2s ease;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.mainContainer {
+  display: grid;
+  grid-template-columns: 5% 24% 48% 23%;
+  grid-template-rows: 56% 44%;
+  height: 100vh;
+  width: 100vw;
+  gap: 0px;
+  padding: 3px;
+}
+
+.gridBox {
+  padding: 5px;
+}
+
+.innerBox {
+  background-color: var(--bg1);
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.titleBox {
+  color: var(--fg);
+  font-size: 29px;
+  font-weight: bold;
+  width: 100%;
+  display: flex;
+  padding-top: 10px;
+  user-select: none;
+  margin-bottom: 15px;
+}
+
+.lone {
+  flex-direction: column;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 30px;
+  padding-bottom: 10px;
+  padding-top: 15px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.bar {
+  padding-top: 15px;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.reverseScroll {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+}
+
+.scrollBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: var(--bg2);
+  border-radius: 10px;
+  user-select: none;
+}
+
+.projectBox {
+  background-color: var(--bg2);
+  height: 70px;
+  width: 100%;
+  padding: 10px;
+  padding-left: 13px;
+  color: var(--fg);
+  transition: 0.4s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+.projectBox:hover {
+  background-color: #3365906f;
+}
+
+.projectBox img {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.projectBox img:hover {
+  background-color: var(--bg2);
+}
+
+.projectBox input {
+  font-size: 19px;
+  background: none;
+  color: var(--fg);
+  border: none;
+  font-weight: bold;
+  display: none;
+}
+
+.projectBox input:focus {
+  background-color: var(--bg2);
+}
+
+.projectBox p {
+  font-size: 12px;;
+}
+
+.friendEmail {
+  font-size: 12px;;
+}
+
+.buttonsBar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 8vh;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  user-select: none;
+}
+
+.forOverGUI {
+  justify-content: space-between;
+  height: 50px;
+}
+
+.button {
+  border-radius: 10px;
+  aspect-ratio: 1/1;
+  height: 100%;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--fg);
+}
+
+.button p {
+  font-size: 0.6em;
+}
+
+.button img {
+  opacity: 0.9;
+  transform: scale(0.7);
+}
+
+.button:hover img {
+  opacity: 1;
+}
+
+.button:hover {
+  background-color: #2a465f6f;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.fileSelectContainer {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 15px;
+}
+
+.fileSelectUpload {
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.fileSelect {
+  border-radius: 10px;
+  height: 50px;
+  width: 100%;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  line-height: 50px;
+  transition: height 0.5s;
+  cursor: pointer;
+}
+
+.fileDropdown {
+  height: 400px;
+}
+
+.selectOption {
+  background-color: var(--bg3);
+  font-size: 20px;
+  width: 100%;
+  padding-left: 15px;
+  user-select: none;
+  position: relative;
+  color: var(--fg);
+  z-index: 2;
+}
+
+.selectHover {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(41, 74, 104);
+  z-index: 2;
+}
+
+.selectHover:hover {
+  opacity: 0.5;
+}
+
+.file {
+  color: var(--fg);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  min-height: 50px;
+  transition: 0.4s;
+  position: relative;
+  z-index: 1;
+}
+
+.file:hover {
+  background-color: #2a465f6f;
+}
+
+.file p {
+  font-size: 8px;
+}
+
+.spaceMaker {
+  height: 100px;
+  width: 100%;
+}
+
+.tickBox {
+  background-color: #30495dff;
+  border: 3px solid #30495dff;
+  aspect-ratio: 1/1;
+  width: 5%;
+  border-radius: 30%;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.ticked {
+  background-color: var(--bg2);
+}
+
+.tickedLight {
+  background-color: #6799b5;
+}
+
+.longButton {
+  height: 85%;
+  background-color: var(--bg3);
+  color: var(--fg);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  aspect-ratio: 2.8/1;
+  font-size: 14px;
+  transition: 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: space-evenly;
+  font-weight: bold;
+}
+
+.confirm {
+  aspect-ratio: 3.5/1;
+  border-radius: 40px;
+  background-color: var(--bg4);
+}
+
+.cancel {
+  aspect-ratio: 3.5/1;
+  border-radius: 40px;
+  background-color: var(--bg2);
+}
+
+.delete {
+  height: 85%;
+  color: var(--fg);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+  white-space: nowrap;
+  overflow: hidden;
+  justify-content: space-evenly;
+  aspect-ratio: 3.5/1;
+  border-radius: 40px;
+  background-color: #612323;
+}
+
+.longButton span {
+  font-size: 20px;
+}
+
+.longButton:hover {
+  background-color: #10406a81;
+}
+
+.delete:hover {
+  background-color: #3d0a0a;
+}
+
+i {
+  color: var(--fg);
+  font-size: 0.9rem;
+  padding: 10px 0 0 10px;
+}
+
+.message {
+  height: 45px;
+  min-height: 45px;
+  width: 100%;
+  padding: 8px;
+  padding-left: 15px;
+  color: var(--fg);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.atYou {
+  background-color: #83a4c542;
+}
+
+.chatContainer {
+  width: 100%;
+  height: 100%;
+
+  max-height: 820px;
+  /* position: relative; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.chatInputContainer {
+  border-radius: 10px;
+  background-color: var(--bg2);
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.chatInput {
+  width: 90%;
+  border: none;
+  background-color: #ffffff00;
+  height: 100%;
+  padding-left: 15px;
+  color:var(--fg);
+  font-size: 15px;
+}
+
+.chatInput:focus {
+  outline: none;
+}
+
+.sendMsg {
+  transition: 0.3s;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background-color: var(--fg2);
+  border-radius: 50%;
+  background-image: url('/src/sendMessage.png');
+  background-position: 8px;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
+.sendMsg:hover {
+  transform: scale(1.05);
+  background-image: url('/src/sendMessage.png');
+  background-color: rgb(23, 53, 72);
+}
+
+.toolbar {
+  background-color: var(--bg1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+.toolbarBtn {
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  transition: 0.3s;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.toolbarBtn:hover {
+  background-color: #3365906f;
+}
+
+.toolbarBtn p {
+  color: var(--fg);
+  font-size: 12px;
+}
+
+.toolbarBtn img {
+  transform: scale(0.9);
+}
+
+.overBox {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000dd;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  display: none;
+}
+
+.overGUI {
+  display: none;
+  width: 25%;
+  height: 60%;
+  border-radius: 20px;
+  background-color: var(--bg1);
+  border: 3px solid var(--fg);
+  position: relative;
+  padding: 50px 70px 50px 70px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overGUITwo {
+  display: none;
+  width: 25%;
+  height: 45%;
+  border-radius: 20px;
+  background-color: var(--bg1);
+  border: 3px solid var(--fg);
+  position: relative;
+  padding: 50px 70px 50px 70px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.friendGUI {
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  width: 50%;
+  display: none;
+  justify-content: space-around;
+}
+
+.guiInner {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.overGUI span {
+  color: var(--fg);
+  font-weight: bold;
+}
+
+.overGUI input {
+  width: 100%;
+  border: none;
+  background-color: var(--bg2);
+  height: 45px;
+  padding-left: 15px;
+  color: var(--fg);
+  font-size: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.overGUI input:focus {
+  outline: none;
+}
+
+.closeButton {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #8da1bdff;
+  color: var(--fg);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.roleInputContainer {
+  position: relative;
+}
+
+.roleSuggestions {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+  width: 100%;
+  display: none;
+  z-index: 2;
+}
+
+.roleSuggestions ul {
+  background-color: #0a192400;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.listItem {
+  background-color: var(--bg2);
+  padding: 5px;
+  padding-left: 15px;
+  width: 100%;
+  list-style-type: none;
+  color: #8da1bdff;
+  line-height: 30px;
+  min-height: 30px;
+}
+
+.listItem:hover {
+  background-color: #122b3f;
+}
+
+.roleHighlighted { 
+  background-color: #122b3f;
+}
+
+.dropdown {
+  background-color: #13273a;
+  width: 160px;
+  max-height: 0px;
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.dropdownOption {
+  color: rgb(155, 176, 202);
+  font-size: 13px;
+  padding: 8px;
+  height: 33px;
+}
+
+.dropdownOption:hover {
+  background-color: #3365906f;
+}
+
+.overGUITwo input {
+  color: var(--fg);
+  width: 70%;
+}
+
+::-webkit-file-upload-button {
+  background-color: var(--bg2);
+  color: var(--fg);
+  padding: 1em;
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+::-webkit-file-upload-button:hover {
+  background-color: var(--bg1);
+}
+
+.mContainer {
+  display: none;
+}
+
+.pages {
+  width: 100%;
+  height: 91vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  padding: 15px;
+  background-color: var(--bg1);
+  color: var(--fg);
+  position: relative;
+}
+
+.h1 {
+  color: var(--fg);
+  width: 95%;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h1 {
+  width: 95%;
+}
+
+.page {
+  display: none;
+  width: 95%;
+  height: 100%;
+  border-radius: 5px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  position: relative;
+  max-height: 80vh;
+
+  align-items: center;
+}
+
+.page span {
+  color: var(--fg);
+}
+
+.page input {
+  background-color: var(--bg2);
+  outline: none;
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+  color: var(--fg);
+  padding-left: 10px;
+  font-size: 0.8rem;
+}
+
+.bottomBar {
+  width: 100%;
+  height: 9vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--bg1);
+  border-top: 1px solid var(--fg-slight);
+  overflow: hidden;
+}
+
+.relativeBox {
+  position: relative;
+  height: 100%;
+  /* padding-bottom: 15px; */
+}
+
+.mButton {
+  position: absolute;
+  right: 15px;
+  bottom: 0px;
+  font-size: 2.5rem;
+  background-color: var(--bg2);
+  border-radius: 7px;
+  padding: 0px;
+  color: var(--fg);
+  max-width: 30px;
+}
+
+.mSave {
+  background-color: rgb(51, 81, 119);
+  color: rgb(182, 206, 235);
+  border-radius: 20px;
+  width: 100px;
+  padding: 6px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
+  height: 30px;
+}
+
+.at { 
+  display: inline;
+  font-weight: bolder;
+  color: #4794c1
+}
+
+.modeToggle {
+  background-color: #474a4b;
+  width: 38px;
+  height: 16px;
+  border-radius: 40px;
+  position: relative;
+  margin-top: 5px;
+}
+
+.modeOn {
+  background-color: rgb(51, 81, 119);
+}
+
+.modeToggleSwitch {
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0px;
+  transition: 0.3s ease;
+}
+
+.modeSwitchOn {
+  left: 22px;
+}
+
+.settingsButton {
+  display: flex;
+  position: absolute;
+  right: 10px;
+  padding: 10px;
+  width: 35px;
+  height: 35px;
+}
+
+.show {
+  display: flex;
+  opacity: 1;
+}
+
+.drop {
+  display: flex;
+  max-height: max-content;
+}
+
+.selected {
+  background-color: #5694cd3a;
+}
+
+@media only screen and (max-width: 950px) {
+  .mainContainer {
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+  .mContainer {
+    display: flex;
+  }
+
+  .button {
+    height: 9vh;
+    justify-content: space-evenly;
+    padding: 6px 7px 11px 7px;
+    border-radius: 0;
+    width: 20%; 
+  }
+
+  .button:hover {
+  background-color: #243c5148;
+  }
+
+  .projectBox {
+    height: 60px;
+  }
+
+  .fileSelect span, .selectOption {
+    font-size: 1rem;
+  }
+
+  .projectBox p {
+    font-size: 0.6rem;
+  }
+
+  .projectBox h1, .message, .chatInput, .file, .longButton p {
+    font-size: 0.8rem;
+  }
+
+  .projectBox span {
+    font-size: 0.7rem;
+  }
+
+  .fileSelectContainer {
+    width: 100%;
+    top: 0px;
+    left: 0px;
+  }
+
+  .button img {
+    transform: scale(0.5);
+  }
+
+  .projectBox {
+    height: 55px;
+  }
+
+  .overGUI {
+    width: 125%;
+    transform: scale(0.7);
+    height: 90%;
+  }
+  
+  .overGUITwo {
+    width: 125%;
+    transform: scale(0.7);
+    height: 70%;
+  }
+
+  .overGUITwo input {
+    height: 100%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  .h1 {
+    font-size: 1rem;
+  }
+  
+  .projectBox img {
+    width: 36px;
+    height: 36px;
+    right: 8px;
+  }
+
+  .dropdownOption {
+    font-size: 0.7rem;
+    padding: 7px;
+    height: 29px;
+  }
+
+  i {
+    font-size: 0.8rem;
+  }
+
+  .sendMsg {
+    width: 25px;
+    height: 25px
+  }
+
+  .chatInputContainer {
+    height: 40px;
+  }
+
+  .settingsButton {
+    width: 20px;
+    height: 20px;
   }
 }
