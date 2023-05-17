@@ -9,6 +9,8 @@
   --fg: #b6ceeb;
   --fg2: #0d2331;
   --fg-slight: #acc5dd33;
+
+  --app-height: 100%;
 }
 
 * {
@@ -26,6 +28,8 @@ body {
 .wholeApp {
   overflow: hidden;
   height: 100vh;
+  height: var(--app-height);
+  position: relative;
 }
 
 .mainContainer {
