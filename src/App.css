@@ -23,17 +23,17 @@ body {
   transition: background-color 0.2s ease;
 }
 
-/* .wholeApp {
+.wholeApp {
   overflow: hidden;
-  height: 100%;
-} */
+  height: 100vh;
+}
 
 .mainContainer {
   display: grid;
   grid-template-columns: 5% 24% 48% 23%;
   grid-template-rows: 56% 44%;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   gap: 0px;
   padding: 3px;
 }
@@ -164,7 +164,7 @@ body {
   width: 100%;
   margin-top: 15px;
   margin-bottom: 15px;
-  height: 8vh;
+  height: 9%;
   justify-content: space-between;
   align-items: center;
   border-radius: 10px;
@@ -671,7 +671,7 @@ i {
 
 .pages {
   width: 100%;
-  height: 91vh;
+  height: 91%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -725,10 +725,9 @@ h1 {
 
 .bottomBar {
   width: 100%;
-  height: 9vh;
-  top: 91vh;
+  height: 9%;
   position: absolute;
-  /* bottom: 0; */
+  bottom: 0;
   left: 0;
   display: flex;
   flex-direction: row;
@@ -842,7 +841,7 @@ h1 {
   }
 
   .button {
-    height: 9vh;
+    height: 100%;
     justify-content: space-evenly;
     padding: 6px 7px 11px 7px;
     border-radius: 0;
