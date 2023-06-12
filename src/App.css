@@ -27,7 +27,8 @@ body {
 
 .wholeApp {
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
+  height: 100svh;
   height: var(--app-height);
   position: relative;
 }

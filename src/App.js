@@ -138,13 +138,10 @@ function App() {
     projSelected: profile.projSelected
   }
 
-  
-  
   // LOAD PROFILE
   useEffect(() => {
     let storedProfile = JSON.parse(localStorage.getItem('trackCMS.profile'));
     if (storedProfile) {setProfile(storedProfile)};
-    resize();
   }, [])
   
   // SAVE PROFILE
@@ -154,16 +151,6 @@ function App() {
 
 
   // FUNCTIONS //
-  function resize() {
-    const doc = document.documentElement
-    doc.style.setProperty('--app-height', `${window.innerHeight}px`)
-    // $('.wholeApp').css('height', window.innerHeight + 'px');
-    // $('.pages').css('height', window.innerHeight * 0.91 + 'px');
-    // $('.bottomBar').css('top', window.innerHeight * 0.91 + 'px');
-  }
-
-  window.addEventListener('resize', resize);
-
   function selectProject(id) {
     let index = profile.projects.map(proj => proj.id).indexOf(id);
     setProfile(p => ({
