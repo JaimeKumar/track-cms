@@ -9,8 +9,6 @@
   --fg: #b6ceeb;
   --fg2: #0d2331;
   --fg-slight: #acc5dd33;
-
-  --app-height: 100%;
 }
 
 * {
@@ -29,7 +27,6 @@ body {
   overflow: hidden;
   height: 100%;
   height: 100svh;
-  height: var(--app-height);
   position: relative;
 }
 
