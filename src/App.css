@@ -669,6 +669,7 @@ i {
 
 .mContainer {
   display: none;
+  height: 100%;
 }
 
 .pages {
