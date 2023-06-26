@@ -1,7 +1,7 @@
 import React from 'react'
 import Project from './Project'
 
-export default function ProjectBox({profile, functions, deselect, imgs}) {
+export default function ProjectBox({profile, functions, deselect, imgs, mode}) {
     let prof = {...JSON.parse(profile)}
 
     function projectsOut(e) {
@@ -11,7 +11,7 @@ export default function ProjectBox({profile, functions, deselect, imgs}) {
   return (
     <div className='scrollBox' onClick={projectsOut}>
         {prof.projects.map((proj) => {
-            return <Project key={proj.id} proj={proj} functions={functions} profile={prof} imgs={imgs}/>
+            return <Project key={proj.id} proj={proj} functions={functions} profile={prof} imgs={imgs} mode={mode}/>
         })}
     </div>
   )

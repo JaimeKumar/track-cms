@@ -86,7 +86,6 @@ function App() {
           chat: []
         }
       ],
-      mode: [{text: 'Light Mode', selected: false}, {text: 'Dark Mode', selected: true}],
       projSelected: -1
   });
 
@@ -109,6 +108,7 @@ function App() {
   const [dropdownPos, setDropdownPos] = useState({x: 0, y: 0});
   const [dropDownOptions, setDropdown] = useState([]);
   const [mTitle, setTitle] = useState('Projects');
+  const [mode, setMode] = useState([{text: 'Light Mode', selected: false}, {text: 'Dark Mode', selected: true}])
 
   const chatInputRef = useRef();
   const roleInputRef = useRef();
@@ -230,7 +230,7 @@ function App() {
     }))
 
     if (!allSelected) {
-      if (profile.mode[0].selected) {
+      if (mode[0].selected) {
         $('#mainTick').addClass('tickedLight')
         $('#mainTickMobile').addClass('tickedLight')
       } else {
@@ -238,7 +238,7 @@ function App() {
         $('#mainTickMobile').addClass('ticked')
       }
     } else {
-      if (profile.mode[0].selected) {
+      if (mode[0].selected) {
         $('#mainTick').removeClass('tickedLight')
         $('#mainTickMobile').removeClass('tickedLight')
       } else {
@@ -676,29 +676,29 @@ function App() {
   }
 
   function changeMode() {
-    let tempMode = profile.mode;
-    tempMode.forEach(mode => {
-      mode.selected = !mode.selected;
-    })
-    setProfile(prev => ({
-      ...prev,
-      mode: tempMode
-    }))
+    let temp = [...mode];
+    temp[0].selected = !temp[0].selected
+    temp[1].selected = !temp[1].selected
+    setMode(temp)
+  }
 
-    if (profile.mode[0].selected) {
+  useEffect(() => {
+    if (mode[0].selected) {
       makeLightMode();
     } else {
       makeDarkMode();
     }
-  }
+  }, [mode])
   
   function makeLightMode() {
     $(document.body).css('backgroundColor', 'white');
         
-    $(':root').css('--bg1', '#aac2dc');  
-    $(':root').css('--bg2', '#d0dde9');
-    $(':root').css('--bg3', '#789dc2');
-    $(':root').css('--bg4', '#789dc2');
+    $(':root').css('--bg1', '#fff');  
+    $(':root').css('--bg2', '#f7f7f7');
+    $(':root').css('--insetShadow', 'inset 0 0 10px #ccc');
+    $(':root').css('--outsetShadow', '0 0 10px #ccc');
+    $(':root').css('--bg3', '#f3f3f3');
+    $(':root').css('--bg4', '#f3f3f3');
     
     $(':root').css('--fg', '#132e40');
     $(':root').css('--fg2', '#efefff');
@@ -707,9 +707,11 @@ function App() {
   
   function makeDarkMode() {
     $(document.body).css('backgroundColor', 'black');
-    
+
     $(':root').css('--bg1', '#0c1b24ff');  
-    $(':root').css('--bg2', '#030c11');  
+    $(':root').css('--bg2', '#030c11');
+    $(':root').css('--insetShadow', 'none');
+    $(':root').css('--outsetShadow', 'none');
     $(':root').css('--bg3', '#07121a');  
     $(':root').css('--bg4', 'rgb(51, 81, 119)');  
     
@@ -859,7 +861,7 @@ function App() {
   }
 
   useEffect(() => {
-    if (profile.mode[0].selected) {
+    if (mode[0].selected) {
       makeLightMode()
     } else {
       makeDarkMode()
@@ -873,7 +875,7 @@ function App() {
         <div className='gridBox' style={{gridRow: '1/3', gridColumn: '1/2'}}>
           <div className='toolbar'>
             <div className='toolbarBtn' onClick={editProfile}>
-              {profile.mode.map(mode => {
+              {mode.map(mode => {
                 if (mode.selected) return;
                 if (mode.text === 'Light Mode') {
                   return <img src={profileBtnImg} alt='profile'/>
@@ -884,7 +886,7 @@ function App() {
               <p>Profile</p>
             </div>
             <div className='toolbarBtn' onClick={openNewProject}>
-              {profile.mode.map(mode => {
+              {mode.map(mode => {
                 if (mode.selected) return;
                 if (mode.text === 'Light Mode') {
                   return <img src={addBtnImg} alt='new project'/>
@@ -895,7 +897,7 @@ function App() {
               <p>New Project</p>
             </div>
             <div className='toolbarBtn' onClick={openAddFriend}>
-              {profile.mode.map(mode => {
+              {mode.map(mode => {
                 if (mode.selected) return;
                 if (mode.text === 'Light Mode') {
                   return <img src={friendBtnImg} alt='Add Friend'/>
@@ -906,7 +908,7 @@ function App() {
               <p>Add Friend</p>
             </div>
             <div className='toolbarBtn' onClick={changeMode}>
-              {profile.mode.map(mode => {
+              {mode.map(mode => {
                 if (mode.selected) return;
                 if (mode.text === 'Light Mode') {
                   return <img src={darkmodeBtnImg} alt='dark mode or light mode'/>
@@ -914,7 +916,7 @@ function App() {
                   return <img src={darkmodeBtnImgDark} alt='dark mode or light mode'/>
                 }
               })}
-              <p>{profile.mode.map((mode) => {
+              <p>{mode.map((mode) => {
                 if (!mode.selected) {
                   return mode.text;
                 }
@@ -930,7 +932,7 @@ function App() {
               <p>Projects</p>
             </div>
             <div className='spaceMaker' style={{height: '85px'}}></div>
-            <ProjectBox key={uuidv4()} profile={JSON.stringify(profile)} functions={projectFunctions} deselect={deselect} imgs={[mSettings, mSettingsLight]} />
+            <ProjectBox key={uuidv4()} profile={JSON.stringify(profile)} functions={projectFunctions} deselect={deselect} imgs={[mSettings, mSettingsLight]} mode={mode} />
           </div>
         </div>
 
@@ -951,19 +953,19 @@ function App() {
         {/* FILES */}
         <div className='gridBox' style={{gridRow: '1/2', gridColumn: '4/5'}}>
           <div className='innerBox'>
-            <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={false}/>
+            <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={false} mode={mode}/>
 
             <div className='spaceMaker' style={{height: '115px'}}></div>
 
             <Files key={uuidv4()} profile={profile} fileCat={fileCat} clickFile={clickFile} clickFileRight={rightClickFile} imgs={[mSettings, mSettingsLight]} />
 
             <div className='buttonsBar'>
-              <div className={'longButton ' + profile.mode.find(p => p.selected).text.toLowerCase()} onClick={selectAllFiles}>
+              <div className={'longButton'} onClick={selectAllFiles}>
                 <div id='mainTick' className='tickBox' style={{width: '12.5%', minWidth: '13px', marginRight: '0'}}></div>
                 <p>Select All</p>
               </div>
               <div className='button' onClick={downloadFiles}>
-                {profile.mode.map(mode => {
+                {mode.map(mode => {
                   if (mode.selected) return;
                   if (mode.text === 'Light Mode') {
                     return <img src={downloadBtnImg} alt='download files'/>
@@ -974,7 +976,7 @@ function App() {
                 <p>Save</p>
               </div>
               <div className='button' onClick={deleteFiles}>
-                {profile.mode.map(mode => {
+                {mode.map(mode => {
                   if (mode.selected) return [];
                   if (mode.text === 'Light Mode') {
                     return <img src={deleteBtnImg} alt='delete files'/>
@@ -986,7 +988,7 @@ function App() {
                 <p>Delete</p>
               </div>
               <div className='button' onClick={openUpload}>
-                {profile.mode.map(mode => {
+                {mode.map(mode => {
                   if (mode.selected) return;
                   if (mode.text === 'Light Mode') {
                     return <img src={addBtnImg} alt='upload file'/>
@@ -1007,7 +1009,7 @@ function App() {
               <p>
                 People
               </p>
-              <div onClick={openAddPerson} className={'longButton ' + profile.mode.find(p => p.selected).text.toLowerCase()} style={{aspectRatio: '4/1', height: '100%'}}>
+              <div onClick={openAddPerson} className={'longButton ' + mode.find(p => p.selected).text.toLowerCase()} style={{aspectRatio: '4/1', height: '100%'}}>
                 <span>+</span> &nbsp; Add Person
               </div>
             </div>
@@ -1154,7 +1156,7 @@ function App() {
 
         <div id='uploadFile' className="overGUITwo">
           <div className="guiInner" style={{position: 'relative'}}>
-            <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={true}/>
+            <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={true} mode={mode}/>
             <div style={{width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
               <input className='uploadInput' type='file' id='fileUpload' multiple style={{backgroundColor: '#00000000'}}></input>
             </div>
@@ -1173,8 +1175,8 @@ function App() {
             
             {/* PROJECTS */}
             <div className='page' id="mProjpage" style={{display: 'flex'}}>
-              <ProjectBox key={uuidv4()} profile={JSON.stringify(profile)} functions={projectFunctions} deselect={deselect} imgs={[mSettings, mSettingsLight]} />
-              <div onClick={openNewProject} className={'mButton ' + profile.mode.find(p => p.selected).text.toLowerCase()}>
+              <ProjectBox key={uuidv4()} profile={JSON.stringify(profile)} functions={projectFunctions} deselect={deselect} imgs={[mSettings, mSettingsLight]} mode={mode}/>
+              <div onClick={openNewProject} className={'mButton ' + mode.find(p => p.selected).text.toLowerCase()}>
                 <span>+</span>
               </div>
             </div>
@@ -1187,19 +1189,19 @@ function App() {
             {/* FILES */}
             <div className="page" id='mFilepage'>
               <div className='spaceMaker' style={{height: '65px'}}></div>
-              <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={false}/>
+              <CustomSelect key={uuidv4()} profile={profile} clickedOption={clickedOption} expandSelect={expandSelect} fileCat={fileCat} cats={cats} forUpload={false} mode={mode}/>
 
               <div className='spaceMaker' style={{height: '20px'}}></div>
 
               <Files key={uuidv4()} profile={profile} fileCat={fileCat} clickFile={clickFile} clickFileRight={rightClickFile} m={true} imgs={[mSettings, mSettingsLight]} />
 
               <div className='buttonsBar'>
-                <div className={'longButton ' + profile.mode.find(p => p.selected).text.toLowerCase()} onClick={selectAllFiles}>
+                <div className={'longButton ' + mode.find(p => p.selected).text.toLowerCase()} onClick={selectAllFiles}>
                   <div id='mainTickMobile' className='tickBox' style={{width: '12.5%', minWidth: '13px', marginRight: '0'}}></div>
                   <p>Select All</p>
                 </div>
                 <div className='button' onClick={downloadFiles}>
-                  {profile.mode.map(mode => {
+                  {mode.map(mode => {
                     if (mode.selected) return;
                     if (mode.text === 'Light Mode') {
                       return <img src={downloadBtnImg} alt='download files'/>
@@ -1210,7 +1212,7 @@ function App() {
                   <p>Save</p>
                 </div>
                 <div className='button' onClick={deleteFiles}>
-                  {profile.mode.map(mode => {
+                  {mode.map(mode => {
                     if (mode.selected) return [];
                     if (mode.text === 'Light Mode') {
                       return <img src={deleteBtnImg} alt='delete files'/>
@@ -1222,7 +1224,7 @@ function App() {
                   <p>Delete</p>
                 </div>
                 <div className='button' onClick={openUpload}>
-                  {profile.mode.map(mode => {
+                  {mode.map(mode => {
                     if (mode.selected) return;
                     if (mode.text === 'Light Mode') {
                       return <img src={addBtnImg} alt='upload file'/>
@@ -1239,7 +1241,7 @@ function App() {
             <div className="page" id='mPeoplepage'>
               <People key={uuidv4()} profile={profile} rightClickPerson={clickPerson} imgs={[mSettings, mSettingsLight]}/>
               <div className="mButtonCont">
-                <div onClick={openAddPerson} className={'mButton ' + profile.mode.find(p => p.selected).text.toLowerCase()}>
+                <div onClick={openAddPerson} className={'mButton ' + mode.find(p => p.selected).text.toLowerCase()}>
                   <span>+</span>
                 </div>
               </div>
@@ -1265,7 +1267,7 @@ function App() {
                       })}
                 </div>
                   
-                <div onClick={openAddFriendMobile} className={'mButton ' + profile.mode.find(p => p.selected).text.toLowerCase()}>
+                <div onClick={openAddFriendMobile} className={'mButton ' + mode.find(p => p.selected).text.toLowerCase()}>
                   <span>+</span>
                 </div>
               </div>
@@ -1283,7 +1285,7 @@ function App() {
 
         <div className="bottomBar">
           <div className="button" id='mProj' onClick={mButtonClick}>
-            {profile.mode.map(mode => {
+            {mode.map(mode => {
               if (mode.selected) return;
               if (mode.text === 'Light Mode') {
                 return <img src={mProjects} id='mProj' alt="Projects"/>
@@ -1295,7 +1297,7 @@ function App() {
           </div>
 
           <div className="button" id='mPeople' onClick={mButtonClick}>
-            {profile.mode.map(mode => {
+            {mode.map(mode => {
               if (mode.selected) return;
               if (mode.text === 'Light Mode') {
                 return <img src={mPeople} id='mPeople' alt="People"/>
@@ -1307,7 +1309,7 @@ function App() {
           </div>
 
           <div className="button" id='mChat' onClick={mButtonClick}>
-            {profile.mode.map(mode => {
+            {mode.map(mode => {
               if (mode.selected) return;
               if (mode.text === 'Light Mode') {
                 return <img src={mChat} id='mChat' alt="Chat"/>
@@ -1319,7 +1321,7 @@ function App() {
           </div>
 
           <div className="button" id='mFile' onClick={mButtonClick}>
-            {profile.mode.map(mode => {
+            {mode.map(mode => {
               if (mode.selected) return;
               if (mode.text === 'Light Mode') {
                 return <img src={mFiles} id='mFile' alt="Files"/>
@@ -1331,7 +1333,7 @@ function App() {
           </div>
 
           <div className="button" id='mProfile' onClick={mButtonClick}>
-            {profile.mode.map(mode => {
+            {mode.map(mode => {
               if (mode.selected) return;
               if (mode.text === 'Light Mode') {
                 return <img src={mProfile} id='mProfile' alt="Profile"/>

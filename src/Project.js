@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Project({proj, functions, profile, imgs}) {
+export default function Project({proj, functions, profile, imgs, mode}) {
 
   function selectProject() {
     functions.projectSelect(proj.id);
@@ -8,7 +8,7 @@ export default function Project({proj, functions, profile, imgs}) {
 
   let img = imgs[0];
 
-  if (profile.mode[0].selected) {
+  if (mode[0].selected) {
     img = imgs[1];
   }
 

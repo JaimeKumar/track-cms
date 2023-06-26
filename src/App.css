@@ -9,6 +9,9 @@
   --fg: #b6ceeb;
   --fg2: #0d2331;
   --fg-slight: #acc5dd33;
+
+  --insetShadow: none;
+  --outsetShadow: none;
 }
 
 * {
@@ -57,17 +60,64 @@ body {
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  box-shadow: var(--outsetShadow);
+}
+
+.toolbar {
+  background-color: var(--bg1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  user-select: none;
+  box-shadow: var(--outsetShadow);
+
+}
+
+.toolbarBtn {
+  height: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  transition: 0.3s;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.toolbarBtn:hover {
+  background-color: #3365906f;
+}
+
+.toolbarBtn p {
+  color: var(--fg);
+  font-size: clamp(9px, 1.4vmin, 14px);
+}
+
+.toolbarBtn img {
+  width: clamp(20px, 100%, 27px)
+  /* transform: scale(0.9); */
+}
+
+.lightMode {
+  background-color: white;
+  box-shadow: 0 0 10px #ccc;
 }
 
 .titleBox {
   color: var(--fg);
-  font-size: 29px;
   font-weight: bold;
   width: 100%;
   display: flex;
   padding-top: 10px;
   user-select: none;
   margin-bottom: 15px;
+  font-size: clamp(12px, 2vw, 30px);
 }
 
 .lone {
@@ -104,10 +154,11 @@ body {
   background-color: var(--bg2);
   border-radius: 10px;
   user-select: none;
+  box-shadow: var(--insetShadow);
 }
 
 .projectBox {
-  background-color: var(--bg2);
+  /* background-color: var(--bg2); */
   height: 70px;
   width: 100%;
   padding: 10px;
@@ -189,6 +240,7 @@ body {
   align-items: center;
   cursor: pointer;
   color: var(--fg);
+  padding: 2px 4px;
 }
 
 .button p {
@@ -314,7 +366,7 @@ body {
 }
 
 .longButton {
-  height: 85%;
+  height: clamp(40px, 85%, 60px);
   background-color: var(--bg3);
   color: var(--fg);
   border-radius: 10px;
@@ -322,13 +374,16 @@ body {
   flex-direction: row;
   align-items: center;
   cursor: pointer;
-  aspect-ratio: 2.8/1;
-  font-size: 14px;
+  /* aspect-ratio: 2.8/1; */
+  font-size: clamp(12px, 0.7vw, 15px);
   transition: 0.3s;
   white-space: nowrap;
   overflow: hidden;
   justify-content: space-evenly;
   font-weight: bold;
+  padding: 0 10px;
+  width: fit-content;
+  column-gap: 5px;
 }
 
 .confirm {
@@ -451,44 +506,6 @@ i {
   transform: scale(1.05);
   background-image: url('/src/sendMessage.png');
   background-color: rgb(23, 53, 72);
-}
-
-.toolbar {
-  background-color: var(--bg1);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  user-select: none;
-}
-
-.toolbarBtn {
-  height: 115px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  transition: 0.3s;
-  padding: 18px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.toolbarBtn:hover {
-  background-color: #3365906f;
-}
-
-.toolbarBtn p {
-  color: var(--fg);
-  font-size: 12px;
-}
-
-.toolbarBtn img {
-  transform: scale(0.9);
 }
 
 .overBox {
@@ -752,7 +769,6 @@ h1 {
   right: 15px;
   bottom: 0px;
   font-size: 2.5rem;
-  background-color: var(--bg2);
   border-radius: 7px;
   padding: 0px;
   color: var(--fg);
@@ -834,7 +850,7 @@ h1 {
   background-color: #5694cd3a;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 1200px) {
   .mainContainer {
     display: none;
   }
@@ -859,20 +875,8 @@ h1 {
     height: 60px;
   }
 
-  .fileSelect span, .selectOption {
-    font-size: 1rem;
-  }
-
   .projectBox p {
     font-size: 0.6rem;
-  }
-
-  .projectBox h1, .message, .chatInput, .file, .longButton p {
-    font-size: 0.8rem;
-  }
-
-  .projectBox span {
-    font-size: 0.7rem;
   }
 
   .fileSelectContainer {
@@ -906,16 +910,7 @@ h1 {
   }
 
   h1 {
-    font-size: 1.5rem;
     margin-bottom: 15px;
-  }
-
-  h2 {
-    font-size: 1.1rem;
-  }
-
-  .h1 {
-    font-size: 1rem;
   }
   
   .projectBox img {
